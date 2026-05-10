@@ -26,7 +26,7 @@ public class CorsConfig {
         configuration.setAllowCredentials(false); // Since we use Bearer tokens, credentials aren't strictly required, but usually set to true if using cookies.
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/api/**", configuration);
+        source.registerCorsConfiguration("/**", configuration);
         return source;
     }
 }
