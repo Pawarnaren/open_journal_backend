@@ -13,7 +13,7 @@ jwt:
   expiration: 86400000
 
 cors:
-  allowed-origins: http://localhost:5173,http://localhost:5174,http://localhost:5175,http://localhost:5176,https://superlative-marigold-5cd1b4.netlify.app
+  allowed-origins: http://localhost:5173,http://localhost:5174,http://localhost:5175,http://localhost:5176,https://open-journal-naren.netlify.app
 
 logging:
   level:
