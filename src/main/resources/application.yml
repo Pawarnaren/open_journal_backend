@@ -1,0 +1,22 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: openjournal-backend
+  data:
+    mongodb:
+      uri: mongodb+srv://kiyotakakei17_db_user:naren123@cluster0.cv9emp6.mongodb.net/openjournal?retryWrites=true&w=majority&appName=Cluster0
+
+jwt:
+  secret: YmE2ZTcwNGM5ODhlNWQ4NDNlMWEwZmFkOGJjY2ZlMGY3MTFkMmI5MWE5ZGUzODQ3MjBlZmVlZTEwODNhZmFhZA==
+  expiration: 86400000
+
+cors:
+  allowed-origins: http://localhost:5173,http://localhost:5174,http://localhost:5175,http://localhost:5176
+
+logging:
+  level:
+    com.openjournal.backend: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.data.mongodb.core.MongoTemplate: DEBUG
