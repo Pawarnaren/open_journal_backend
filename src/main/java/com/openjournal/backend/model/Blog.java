@@ -49,9 +49,19 @@ public class Blog {
     public void setExcerpt(String excerpt) { this.excerpt = excerpt; }
     public String getUserId() { return userId; }
     public void setUserId(String userId) { this.userId = userId; }
-    public List<String> getTags() { return tags; }
+    public List<String> getTags() {
+        if (tags == null) {
+            tags = new ArrayList<>();
+        }
+        return tags;
+    }
     public void setTags(List<String> tags) { this.tags = tags; }
-    public List<ImageDto> getImages() { return images; }
+    public List<ImageDto> getImages() {
+        if (images == null) {
+            images = new ArrayList<>();
+        }
+        return images;
+    }
     public void setImages(List<ImageDto> images) { this.images = images; }
     public String getCoverImagePublicId() { return coverImagePublicId; }
     public void setCoverImagePublicId(String coverImagePublicId) { this.coverImagePublicId = coverImagePublicId; }
@@ -59,7 +69,12 @@ public class Blog {
     public void setCoverImageUrl(String coverImageUrl) { this.coverImageUrl = coverImageUrl; }
     public int getLikeCount() { return likeCount; }
     public void setLikeCount(int likeCount) { this.likeCount = likeCount; }
-    public List<Comment> getComments() { return comments; }
+    public List<Comment> getComments() {
+        if (comments == null) {
+            comments = new ArrayList<>();
+        }
+        return comments;
+    }
     public void setComments(List<Comment> comments) { this.comments = comments; }
     public Instant getCreatedAt() { return createdAt; }
     public void setCreatedAt(Instant createdAt) { this.createdAt = createdAt; }

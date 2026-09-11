@@ -39,7 +39,12 @@ public class Journal {
     public void setContent(String content) { this.content = content; }
     public String getMood() { return mood; }
     public void setMood(String mood) { this.mood = mood; }
-    public List<ImageDto> getImages() { return images; }
+    public List<ImageDto> getImages() {
+        if (images == null) {
+            images = new ArrayList<>();
+        }
+        return images;
+    }
     public void setImages(List<ImageDto> images) { this.images = images; }
     public String getUserId() { return userId; }
     public void setUserId(String userId) { this.userId = userId; }

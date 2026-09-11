@@ -113,6 +113,7 @@ public class BlogService {
     public List<String> getTags() {
         return blogRepository.findAll().stream()
                 .flatMap(blog -> blog.getTags().stream())
+                .filter(tag -> tag != null && !tag.isBlank())
                 .distinct()
                 .collect(Collectors.toList());
     }
