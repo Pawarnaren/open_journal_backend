@@ -119,7 +119,10 @@ public class BlogService {
     }
 
     private BlogDto mapToDto(Blog blog) {
-        User author = userRepository.findById(blog.getUserId()).orElse(null);
+        User author = null;
+        if (blog.getUserId() != null && !blog.getUserId().isBlank()) {
+            author = userRepository.findById(blog.getUserId()).orElse(null);
+        }
         AuthorDto authorDto = null;
         if (author != null) {
             authorDto = new AuthorDto(
@@ -131,7 +134,10 @@ public class BlogService {
         }
 
         List<CommentDto> commentDtos = blog.getComments().stream().map(c -> {
-            User commentAuthor = userRepository.findById(c.getUserId()).orElse(null);
+            User commentAuthor = null;
+            if (c.getUserId() != null && !c.getUserId().isBlank()) {
+                commentAuthor = userRepository.findById(c.getUserId()).orElse(null);
+            }
             AuthorDto commentAuthorDto = null;
             if (commentAuthor != null) {
                 commentAuthorDto = new AuthorDto(

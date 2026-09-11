@@ -1,6 +1,7 @@
 package com.openjournal.backend.model;
 
 import com.openjournal.backend.dto.ImageDto;
+import com.openjournal.backend.util.BlogDocumentMapper;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -8,7 +9,6 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 
 @Document(collection = "blogs")
@@ -21,21 +21,22 @@ public class Blog {
     private String excerpt;
 
     @Indexed
-    private String userId;
+    private Object userId;
 
-    private List<String> tags = new ArrayList<>();
-    private List<ImageDto> images = new ArrayList<>();
-    
+    // Object so mixed/legacy Mongo shapes (string vs array vs document) do not fail mapping
+    private Object tags;
+    private Object images;
+
     private String coverImagePublicId;
     private String coverImageUrl;
-    
-    private int likeCount;
-    private List<Comment> comments = new ArrayList<>();
+
+    private Object likeCount;
+    private Object comments;
 
     @CreatedDate
-    private Instant createdAt;
+    private Object createdAt;
     @LastModifiedDate
-    private Instant updatedAt;
+    private Object updatedAt;
 
     public Blog() {}
 
@@ -47,37 +48,34 @@ public class Blog {
     public void setContent(String content) { this.content = content; }
     public String getExcerpt() { return excerpt; }
     public void setExcerpt(String excerpt) { this.excerpt = excerpt; }
-    public String getUserId() { return userId; }
+    public String getUserId() { return BlogDocumentMapper.toIdString(userId); }
     public void setUserId(String userId) { this.userId = userId; }
     public List<String> getTags() {
-        if (tags == null) {
-            tags = new ArrayList<>();
-        }
-        return tags;
+        List<String> normalized = BlogDocumentMapper.toTagList(tags);
+        this.tags = normalized;
+        return normalized;
     }
     public void setTags(List<String> tags) { this.tags = tags; }
     public List<ImageDto> getImages() {
-        if (images == null) {
-            images = new ArrayList<>();
-        }
-        return images;
+        List<ImageDto> normalized = BlogDocumentMapper.toImageList(images);
+        this.images = normalized;
+        return normalized;
     }
     public void setImages(List<ImageDto> images) { this.images = images; }
     public String getCoverImagePublicId() { return coverImagePublicId; }
     public void setCoverImagePublicId(String coverImagePublicId) { this.coverImagePublicId = coverImagePublicId; }
     public String getCoverImageUrl() { return coverImageUrl; }
     public void setCoverImageUrl(String coverImageUrl) { this.coverImageUrl = coverImageUrl; }
-    public int getLikeCount() { return likeCount; }
+    public int getLikeCount() { return BlogDocumentMapper.toLikeCount(likeCount); }
     public void setLikeCount(int likeCount) { this.likeCount = likeCount; }
     public List<Comment> getComments() {
-        if (comments == null) {
-            comments = new ArrayList<>();
-        }
-        return comments;
+        List<Comment> normalized = BlogDocumentMapper.toCommentList(comments);
+        this.comments = normalized;
+        return normalized;
     }
     public void setComments(List<Comment> comments) { this.comments = comments; }
-    public Instant getCreatedAt() { return createdAt; }
+    public Instant getCreatedAt() { return BlogDocumentMapper.toInstant(createdAt); }
     public void setCreatedAt(Instant createdAt) { this.createdAt = createdAt; }
-    public Instant getUpdatedAt() { return updatedAt; }
+    public Instant getUpdatedAt() { return BlogDocumentMapper.toInstant(updatedAt); }
     public void setUpdatedAt(Instant updatedAt) { this.updatedAt = updatedAt; }
 }
